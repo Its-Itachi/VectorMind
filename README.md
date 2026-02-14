@@ -1,115 +1,146 @@
-# Multi-Modal-RAG-Chatbot
+# 🧠 VectorMind — Multi-Modal RAG Chatbot
 
-![Multi-Modal RAG Chatbot UI](assets/ui.png)
+This is a **Multi-Modal Retrieval-Augmented Generation (RAG)** system that allows users to upload PDF documents and ask questions grounded strictly in document content.
 
+The system supports structured text extraction, table parsing, OCR fallback for scanned PDFs, semantic retrieval using FAISS, and citation-aware answer generation using Gemini 2.5 Flash.
 
-A Multi-Modal Retrieval-Augmented Generation (RAG) system that allows users to upload PDF documents and ask questions grounded strictly in the document content.
-The system supports text, tables, and OCR-based extraction, combines semantic search with FAISS, and generates accurate, citation-aware answers using Gemini 2.5 Flash.
+---
 
-## 🚀 Key Features
+## 🖼️ Sample Application Interface
 
-#### 📄 PDF Upload & Ingestion
+![VectorMind UI](assets/ui.png)
 
-Parses text, titles, lists, and tables
+---
 
-OCR fallback for scanned or image-based content
+## 📊 System Overview
 
-#### 🧠 Semantic Search
+- **Architecture**: Retrieval-Augmented Generation (RAG)  
+- **Embedding Model**: Sentence Transformers  
+- **Vector Store**: FAISS (local similarity search)  
+- **LLM**: Gemini 2.5 Flash  
+- **Target**: Generate grounded answers strictly from document context  
 
-Vector embeddings stored in FAISS
+---
 
-Retrieves contextually relevant chunks
+## 🔍 Core Capabilities
 
-#### 🤖 LLM-Powered QA
+### 📄 Document Ingestion
+- Layout-aware parsing using Unstructured  
+- Title, paragraph, list, and table extraction  
+- Metadata preservation (page numbers)  
+- OCR fallback for scanned/image-based PDFs  
 
-Uses Google Gemini 2.5 Flash
+### 🧠 Semantic Retrieval
+- Dense vector embeddings  
+- Cosine similarity search  
+- Contextually ranked document chunks  
+- Local FAISS index for high-speed retrieval  
 
-Answers strictly from retrieved context
+### 🤖 Grounded Answer Generation
+- Context-injected prompting  
+- Hallucination reduction via strict document bounding  
+- Page-level citation tagging  
+- Deterministic response formatting  
 
-#### 📌 Source Attribution
+---
 
-Page-level citations included in responses
+## ⚙️ Enhancements
 
-#### 💻 Interactive UI
+- Multi-modal ingestion pipeline  
+- OCR-aware fallback logic  
+- Normalized chunk processing  
+- Modular retrieval and QA engine separation  
+- Local vector database (no external dependency)  
+- Citation transparency to improve answer reliability  
 
-Streamlit-based chat interface
+---
 
-Real-time indexing & querying
+## 🛠 Tech Stack
 
-## 🏗️ System Architecture
-**Pipeline Flow:**
+| Layer | Tools Used |
+|--------|------------|
+| LLM | Gemini 2.5 Flash |
+| Embeddings | Sentence Transformers |
+| Vector Store | FAISS |
+| Parsing | Unstructured |
+| OCR | Tesseract |
+| Orchestration | LangChain |
+| UI | Streamlit |
+| Core ML | PyTorch, Transformers |
 
-- PDF Upload  
-- Unstructured.io Parsing  
-- Normalized Multi-Modal Chunks  
-- Vector Embeddings  
-- FAISS Index  
-- Semantic Retrieval  
-- Gemini LLM  
-- Grounded Answer + Citations  
+---
 
+## 🚀 How to Run Locally
 
-## 📁 Project Structure
+### 1️⃣ Clone the repository
 
-```text
-.
-├── app.py                  # Streamlit UI
-├── build_index.py          # PDF ingestion & FAISS indexing
-├── multi_modal_ingest.py   # PDF parsing & normalization
-├── ocr_utils.py            # OCR helpers (Tesseract)
-├── vector_store.py         # FAISS build/load utilities
-├── retriever.py            # Semantic retrieval logic
-├── qa_engine.py            # RAG + Gemini answer generation
-├── requirements.txt        # Project dependencies
-├── README.md               # Project documentation
-└── assets/
-    └── ui.png              # UI screenshot
+```bash
+git clone https://github.com/Its-Itachi/VectorMind.git
+cd VectorMind
+````
+
+### 2️⃣ Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 3️⃣ Activate the virtual environment
+
+**Windows (PowerShell):**
+
+```bash
+venv\Scripts\activate
+```
+
+**macOS / Linux:**
+
+```bash
+source venv/bin/activate
+```
+
+### 4️⃣ Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5️⃣ Set Environment Variable
+
+Create a `.env` file:
 
 ```
-## ⚙️ Installation & Setup
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/multi-modal-rag-chatbot.git
-cd multi-modal-rag-chatbot
-
-2️⃣ Create Virtual Environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-3️⃣ Install Dependencies
-pip install -r requirements.txt
-
-4️⃣ Set Environment Variables
-
-Create a .env file:
-
 GOOGLE_API_KEY=your_gemini_api_key
+```
 
-▶️ Running the Application
-Build Vector Index
+### ▶ Build Vector Index
+
+```bash
 python build_index.py
+```
 
-Start the UI
-streamlit run app.py
+### ▶ Run Application
 
+```bash
+python -m streamlit run app.py
+```
 
-Then upload a PDF and start asking questions.
+---
 
-## 🧪 Example Questions
+## 👤 Author
 
-What are the deliverables mentioned in this document?
+**Jayesh Dethe**
 
-Explain the Transformer architecture described in the paper.
+GitHub: [https://github.com/Its-Itachi](https://github.com/Its-Itachi)
 
-What evaluation criteria are used?
+---
 
-## 📊 Design Choices & Observations
+## 📝 Notes
 
-Unstructured.io was chosen for robust PDF parsing and table extraction
+* The system enforces **document-bounded responses** to reduce hallucinations
+* OCR support ensures compatibility with scanned academic PDFs
+* Modular architecture allows extension to multi-document or image-based RAG
 
-FAISS enables fast, local semantic retrieval
+---
 
-OCR fallback ensures support for scanned documents
-
-The system is document-bounded, reducing hallucinations
-
-Modular design allows easy extension to images, charts, or multi-PDF support
+Happy coding! 🚀
